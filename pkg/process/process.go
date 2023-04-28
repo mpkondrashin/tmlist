@@ -61,7 +61,7 @@ func (p *Process) GetAllItemsWithMap(l *c1ews.ListResponse, seen map[string]stru
 	for _, name := range includes {
 		list := p.FindList(name)
 		if list == nil {
-			return fmt.Errorf("%w: %s included in %s", ErrListNotFound, name, l.Name)
+			return fmt.Errorf("%w: \"%s\" included in \"%s\" list", ErrListNotFound, name, l.Name)
 		}
 		_, found := seen[list.Name]
 		if found {
