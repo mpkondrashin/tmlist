@@ -116,19 +116,19 @@ The following options are available:
 |Boolean|ext<br/>--ext<br/>TMLIST_EXT|Process file extension lists|false|
 |Boolean|file<br/>--file<br/>TMLIST_FILE|Process file lists|false|
 |Boolean|dry<br/>--dry<br/>TMLIST_DRY|Dry run - do not modify any lists|false|
- 
+
 **Note:** If none of the --dir, --ext or --file options are provided, they all supposed to be true and TMList processes all lists.
- 
+
 **Note:** If the same parameter is provided more than one way, then the following precedence will take place:
 
 Environment variables override the configuration file parameters
 Command line options override both environment variables and configuration file parameters
 
- 
+
 ## Return Codes
- 
+
 If TMList successfully finishes lists modification it returnes code 0. In case of the error, non zero Return Code can be checked to diagnose a problem.
- 
+
 | Return Code | Description |
 | ----------- | ----------- |
 |0|Ok|
@@ -137,5 +137,3 @@ If TMList successfully finishes lists modification it returnes code 0. In case o
 |4|API error|
 |5|Cycle Dependence|
 |6|List Not Found|
- 
- 
