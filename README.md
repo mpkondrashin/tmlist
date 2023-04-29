@@ -44,8 +44,8 @@ https://workload.<region>.cloudone.trendmicro.com/api
 ```
 
 ### Create Configuration File
-Aside to TMList executable create file named config.yaml and open in in your favorite text editor.
-Put into it following content:
+Aside to TMList executable create file named config.yaml and open in your favorite text editor.
+Fill it with the following content:
 ```yaml
 address: <your API entry point URL>
 api_key: <your apy key>
