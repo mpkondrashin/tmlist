@@ -105,7 +105,7 @@ Following options are available:
 
 **Note:** If none of --dir, --ext or --file options are provided they all supposed to be true and TMList processes all lists.
 
-**Note:** If same parameter is privided in more than one way, then following precedence will take place:
+**Note:** If same parameter is provided more than one way, then following precedence will take place:
 1. Environment variables over configuration file parameters
 2. Command parameters line over both environment variables and configuration file
 
