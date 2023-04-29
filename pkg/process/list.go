@@ -101,6 +101,7 @@ func RemoveDuplicates(names []string) (result []string) {
 	return
 }
 
+// ListFromResponse - return List struct build from ListResponse struct
 func ListFromResponse(response *c1ews.ListResponse) *c1ews.List {
 	return &c1ews.List{
 		Name:        response.Name,

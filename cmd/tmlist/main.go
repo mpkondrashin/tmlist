@@ -26,6 +26,7 @@ const (
 	flagDir     = "dir"
 	flagExt     = "ext"
 	flagFile    = "file"
+	flagDryRun  = "dry"
 )
 
 func Configure() {
@@ -35,6 +36,7 @@ func Configure() {
 	fs.Bool(flagDir, false, "Process directories list")
 	fs.Bool(flagFile, false, "Process file extensions list")
 	fs.Bool(flagExt, false, "Process file extensions list")
+	fs.Bool(flagDryRun, false, "Dyr run - do not modify existing lists")
 	err := fs.Parse(os.Args[1:])
 	if err != nil {
 		log.Fatal(err)
@@ -67,7 +69,7 @@ type (
 	Modify func(context.Context, int, *c1ews.List) (*c1ews.ListResponse, error)
 )
 
-func ProcessQuery(name string, list List, modify Modify) {
+func ProcessList(name string, list List, modify Modify, dryRun bool) {
 	log.Printf("%s: Start", name)
 	r, err := list(context.TODO())
 	if err != nil {
@@ -83,6 +85,9 @@ func ProcessQuery(name string, list List, modify Modify) {
 	count := 0
 	p.IterateChanged(func(list *c1ews.ListResponse) error {
 		log.Printf("%s: modify %s", name, list.Name)
+		if dryRun {
+			return nil
+		}
 		l := process.ListFromResponse(list)
 		_, err := modify(context.TODO(), list.ID, l)
 		return err
@@ -94,23 +99,24 @@ func ProcessQuery(name string, list List, modify Modify) {
 
 func main() {
 	Configure()
-	host := viper.GetString(flagAddress) // "https://workload.trend-us-1.cloudone.trendmicro.com/api"
+	host := viper.GetString(flagAddress)
 	if host == "" {
 		log.Fatal(fmt.Errorf("%s parameter is missing", flagAddress))
 	}
-	apikey := viper.GetString(flagAPIKey) // "tmc12OuKXO2Ji71RFrjWYD2d9KPj2GW:7wQFMF5rGHdyE5gAoDLyXZE3nEWAt6TrnDnwF88YzgJzd28YxwmzXiPoqdUTA7Rcjy"
+	apikey := viper.GetString(flagAPIKey)
 	if apikey == "" {
 		log.Fatal(fmt.Errorf("%s parameter is missing", flagAPIKey))
 	}
 	ws := c1ews.NewWorkloadSecurity(apikey, host)
+	dryRun := viper.GetBool(flagDryRun)
 	all := !viper.GetBool(flagDir) && !viper.GetBool(flagExt) && !viper.GetBool(flagFile)
 	if viper.GetBool(flagDir) || all {
-		ProcessQuery("directory list", ws.ListDirectoryLists, ws.ModifyDirectoryList)
+		ProcessList("directory list", ws.ListDirectoryLists, ws.ModifyDirectoryList, dryRun)
 	}
 	if viper.GetBool(flagExt) || all {
-		ProcessQuery("file extension list", ws.ListFileExtensionLists, ws.ModifyFileExtensionList)
+		ProcessList("file extension list", ws.ListFileExtensionLists, ws.ModifyFileExtensionList, dryRun)
 	}
 	if viper.GetBool(flagFile) || all {
-		ProcessQuery("file list", ws.ListFileLists, ws.ModifyFileList)
+		ProcessList("file list", ws.ListFileLists, ws.ModifyFileList, dryRun)
 	}
 }

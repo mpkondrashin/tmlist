@@ -18,7 +18,6 @@ var (
 )
 
 type Process struct {
-	//include []*List
 	in  []c1ews.ListResponse
 	out []c1ews.ListResponse
 }

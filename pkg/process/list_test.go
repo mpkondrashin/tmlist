@@ -204,7 +204,6 @@ func TestAddDependence(t *testing.T) {
 }
 
 func TestRemoveDuplicates(t *testing.T) {
-	// Test cases
 	tests := []struct {
 		name     string
 		input    []string
@@ -226,8 +225,6 @@ func TestRemoveDuplicates(t *testing.T) {
 			expected: []string{"Alice", "Bob"},
 		},
 	}
-
-	// Run tests
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			result := RemoveDuplicates(test.input)
@@ -241,6 +238,51 @@ func TestRemoveDuplicates(t *testing.T) {
 					t.Errorf("RemoveDuplicates(%v) returned duplicate elements: %v", test.input, result)
 					break
 				}
+			}
+		})
+	}
+}
+
+func TestListFromResponse(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    *c1ews.ListResponse
+		expected *c1ews.List
+	}{
+		{
+			name: "empty response",
+			input: &c1ews.ListResponse{
+				Name:        "",
+				Description: "",
+				Items:       []string{},
+			},
+			expected: &c1ews.List{
+				Name:        "",
+				Description: "",
+				Items:       []string{},
+			},
+		},
+		{
+			name: "response with items",
+			input: &c1ews.ListResponse{
+				Name:        "MyList",
+				Description: "A test list",
+				Items:       []string{"item1", "item2", "item3"},
+			},
+			expected: &c1ews.List{
+				Name:        "MyList",
+				Description: "A test list",
+				Items:       []string{"item1", "item2", "item3"},
+			},
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := ListFromResponse(test.input)
+			if result.Name != test.expected.Name ||
+				result.Description != test.expected.Description ||
+				!reflect.DeepEqual(result.Items, test.expected.Items) {
+				t.Errorf("ListFromResponse(%v) = %v, expected %v", test.input, result, test.expected)
 			}
 		})
 	}
