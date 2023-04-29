@@ -21,7 +21,7 @@
 1. Go to Administration -> User Management -> API Keys.
 2. Click New button
 3. Give API Key a name, e.g. "tmlists"
-4. In Role dropdown pick name of role create on previous step
+4. In Role dropdown pick name of role create on previous step <br/><img width="640" src="images/key01.png"/><br/>
 5. Press Next button
 6. Save API key to configuration file (see below)
 
