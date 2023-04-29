@@ -4,9 +4,13 @@
 **Add the ability to include antivirus exclusion lists one into another**
  
 ## Usage
- 
+
+To use TMList one has to edit exclusion lists, provide API Key, REST API entry point URL, and run the program.
+
 ### Get an API Key
- 
+
+Before generating API Key itself, custom role should be created to avoid using default Full Control role.
+
 #### Create a custom restricted role
 
 Open the Cloud One Workload Security (or Deep Security) console.
@@ -32,6 +36,8 @@ Save the API key to the configuration file (see below)
 **Note:** Alternatevly Cloud One API Key can be used with a role that provides Full Control for Endpoint & Workload Security. This approach does not provide appropriate permissions granularity.
  
 ### Get Entry Point Address
+Entry point is URL where program will connect to submit Web API calls
+
 #### For Deep Security users
 For Deep Security, address should be the address of one of Deep Security Managers with port that is 4119 by default and /api path:
 ```
