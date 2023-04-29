@@ -1,0 +1,72 @@
+name: Go
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+
+    - name: Check Go version
+      run: go version
+    
+    - name: Tests
+      run: go test -v ./...
+
+    - name: Build Windows
+      run: GOOS=windows GOARCH=amd64 go build ./cmd/tmlist
+      
+    - name: Pack Windows
+      uses: montudor/action-zip@v1
+      with:
+        args: zip tmlist_win64.zip tmlist.exe
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: tmlist_win64.zip
+
+    - name: Build Linux
+      run: GOOS=linux GOARCH=amd64 go build ./cmd/tmlist
+
+    - name: Pack Linux
+      uses: montudor/action-zip@v1
+      with:
+        args: zip tmlist_linux64.zip tmlist
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: tmlist_linux64.zip
+
+    - name: Build macOS x86
+      run: GOOS=debian GOARCH=amd64 go build ./cmd/tmlist
+
+    - name: Pack macOS x86
+      uses: montudor/action-zip@v1
+      with:
+        args: zip tmlist_macosx86.zip tmlist
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: tmlist_macosx86.zip
+
+    - name: Build macOS ARM
+      run: GOOS=debian GOARCH=arm64 go build ./cmd/tmlist
+
+    - name: Pack macOS ARM
+      uses: montudor/action-zip@v1
+      with:
+        args: zip tmlist_macosxm.zip tmlist
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: tmlist_macosxm.zip
