@@ -1,8 +1,8 @@
  
 # Manage Trend Micro Cloud One Workload Security/Deep Security Lists
- 
+
 **Add the ability to include antivirus exclusion lists one into another**
- 
+
 ## Usage
 
 To use TMList one has to edit exclusion lists, provide API Key, REST API entry point URL, and run the program.
@@ -13,24 +13,23 @@ Before generating API Key itself, custom role should be created to avoid using d
 
 #### Create a custom restricted role
 
-Open the Cloud One Workload Security (or Deep Security) console.
-Go to Administration -> User Management -> Roles.
-Click New button
-Give the new role a name, e.g., "tmlists" <br/><img width="640" src="images/role01.png"/><br/>
-Switch to Computer Rights tab. Turn off all rights <br/><img width="640" src="images/role02.png"/><br/>
-Switch to API Key Rights tab. Pick Custom and do not select any checkboxes <br/><img width="640" src="images/role03.png"/><br/>
-Switch to Common Object Rights tab. Change the dropdown next to File Lists (All), File Extension Lists (All), and Directory Lists (All) to Full. Custom and check only "Can Edit..." checkbox. <br/><img width="640" src="images/role04.png"/><br/>
-Press Ok button at the bottom
+1. Open the Cloud One Workload Security (or Deep Security) console.
+2. Go to Administration -> User Management -> Roles.
+3. Click New button
+3. Give the new role a name, e.g., "tmlists" <br/><img width="640" src="images/role01.png"/><br/>
+4. Switch to Computer Rights tab. Turn off all rights <br/><img width="640" src="images/role02.png"/><br/>
+5. Switch to API Key Rights tab. Pick Custom and do not select any checkboxes <br/><img width="640" src="images/role03.png"/><br/>
+6. Switch to Common Object Rights tab. Change the dropdown next to File Lists (All), File Extension Lists (All), and 7. Directory Lists (All) to Full. Custom and check only "Can Edit..." checkbox. <br/><img width="640" src="images/role04.png"/><br/>
+8. Press Ok button at the bottom
 
- 
 #### Generate API Key
 
-Go to Administration -> User Management -> API Keys.
-Click New button
-Give the API Key a name, e.g., "tmlists"
-In the Role dropdown pick name of the role created on the previous step <br/><img width="640" src="images/key01.png"/><br/>
-Press Next button
-Save the API key to the configuration file (see below)
+1. Go to Administration -> User Management -> API Keys.
+2. Click New button
+3. Give the API Key a name, e.g., "tmlists"
+4. In the Role dropdown pick name of the role created on the previous step <br/><img width="640" src="images/key01.png"/><br/>
+5. Press Next button
+6. Save the API key to the configuration file (see below)
 
 **Note:** Alternatevly Cloud One API Key can be used with a role that provides Full Control for Endpoint & Workload Security. This approach does not provide appropriate permissions granularity.
  
@@ -105,9 +104,8 @@ TMList offers three ways to provide options:
 2. Environment variables
 3. Command line parameters
 
- 
 The following options are available:
- 
+
 | Type | YAML Option<br/>Command line<br/>Env Variable | Description | Default |
 | ---- | --------------------------------------------- | ----------- | ------- |
 |String|address<br/>--address<br/>TMLIST_ADDRESS|Workload Security entrypoint URL or Deep Security Manager URL|none|
