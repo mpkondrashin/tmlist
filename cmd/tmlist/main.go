@@ -33,9 +33,9 @@ func Configure() {
 	fs := pflag.NewFlagSet("", pflag.ExitOnError)
 	fs.String(flagAddress, "", "Cloud One Woekload Security entry point URL")
 	fs.String(flagAPIKey, "", "Cloud One API Key")
-	fs.Bool(flagDir, false, "Process directories list")
-	fs.Bool(flagFile, false, "Process file extensions list")
-	fs.Bool(flagExt, false, "Process file extensions list")
+	fs.Bool(flagDir, false, "Process directory lists")
+	fs.Bool(flagExt, false, "Process file extension lists")
+	fs.Bool(flagFile, false, "Process file lists")
 	fs.Bool(flagDryRun, false, "Dyr run - do not modify existing lists")
 	err := fs.Parse(os.Args[1:])
 	if err != nil {

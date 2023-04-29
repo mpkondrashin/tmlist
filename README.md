@@ -22,7 +22,7 @@ After TMList run, this list will be populated with contents of specified lists.
 
 **Warning:** Contents of the list with includes will be deleted!
 
-**Note:** Cycle incldues are not alowed 
+**Note:** Cycle includes are not alowed 
 
 
 ## Options
