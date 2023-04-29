@@ -32,7 +32,6 @@ In the Role dropdown pick name of the role created on the previous step <br/><im
 Press Next button
 Save the API key to the configuration file (see below)
 
- 
 **Note:** Alternatevly Cloud One API Key can be used with a role that provides Full Control for Endpoint & Workload Security. This approach does not provide appropriate permissions granularity.
  
 ### Get Entry Point Address
@@ -72,7 +71,6 @@ Directory Lists
 File Expension Lists
 File Lists
 
- 
 To create a list that combines other lists, click New button, provide a name, and go to the description section. Put into description section the following lines:
 ```
 Include: <list name>
@@ -82,13 +80,13 @@ Include: <list name>
 Any other lines can be added to the description; they will be ignored by TMList.
  
 After TMList is run, this list will be populated with the contents of the specified lists.
- 
+
 **Warning:** The contents of the list with includes will be deleted! After TMList is run it will contain only included lists.
- 
+
 **Note:** Cycle includes are not alowed
- 
+
 ## Run
- 
+
 TMList can be run without parameters. For Linux/macOS:
 ```commandline
 ./tmlist
@@ -98,14 +96,14 @@ For Windows:
 tmlist.exe
 ```
 It will process all the Lists one by one.
- 
+
 ## Options
- 
+
 TMList offers three ways to provide options:
 
-Configuration file config.yaml. The application seeks for this file in its current folder or in folder of its executable
-Environment variables
-Command line parameters
+1. Configuration file config.yaml. The application seeks for this file in its current folder or in folder of its executable
+2. Environment variables
+3. Command line parameters
 
  
 The following options are available:
