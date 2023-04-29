@@ -7,6 +7,29 @@
 
 To use TMList one has to edit exclusion lists, provide API Key, REST API entry point URL, and run the program.
 
+### Create lists with includes
+
+Open Coud One Workload Security (or Deep Security) console. Go to Policies section -> Common Objects -> Lists.
+TMList support following lists:
+
+Directory Lists
+File Expension Lists
+File Lists
+
+To create a list that combines other lists, click New button, provide a name, and go to the description section. Put into description section the following lines:
+```
+Include: <list name>
+Include: <list name>
+...
+```
+Any other lines can be added to the description; they will be ignored by TMList.
+ 
+After TMList is run, this list will be populated with the contents of the specified lists.
+
+**Warning:** The contents of the list with includes will be deleted! After TMList is run it will contain only included lists.
+
+**Note:** Cycle includes are not alowed
+
 ### Get an API Key
 
 Before generating API Key itself, custom role should be created to avoid using default Full Control role.
@@ -60,29 +83,6 @@ Fill it with the following content:
 address: <your API entry point URL>
 api_key: <your apy key>
 ```
-
-### Create lists with includes
-
-Open Coud One Workload Security (or Deep Security) console. Go to Policies section -> Common Objects -> Lists.
-TMList support following lists:
-
-Directory Lists
-File Expension Lists
-File Lists
-
-To create a list that combines other lists, click New button, provide a name, and go to the description section. Put into description section the following lines:
-```
-Include: <list name>
-Include: <list name>
-...
-```
-Any other lines can be added to the description; they will be ignored by TMList.
- 
-After TMList is run, this list will be populated with the contents of the specified lists.
-
-**Warning:** The contents of the list with includes will be deleted! After TMList is run it will contain only included lists.
-
-**Note:** Cycle includes are not alowed
 
 ## Run
 
