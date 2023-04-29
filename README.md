@@ -60,9 +60,9 @@ Fill it with the following content:
 address: <your API entry point URL>
 api_key: <your apy key>
 ```
- 
+
 ### Create lists with includes
- 
+
 Open Coud One Workload Security (or Deep Security) console. Go to Policies section -> Common Objects -> Lists.
 TMList support following lists:
 
