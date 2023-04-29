@@ -121,8 +121,8 @@ The following options are available:
 
 **Note:** If the same parameter is provided more than one way, then the following precedence will take place:
 
-Environment variables override the configuration file parameters
-Command line options override both environment variables and configuration file parameters
+1. Environment variables override the configuration file parameters
+2. Command line options override both environment variables and configuration file parameters
 
 
 ## Return Codes
