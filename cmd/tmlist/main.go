@@ -84,6 +84,7 @@ func ProcessList(name string, list List, modify Modify, dryRun bool) {
 	}
 	count := 0
 	p.IterateChanged(func(list *c1ews.ListResponse) error {
+		count++
 		log.Printf("%s: modify %s", name, list.Name)
 		if dryRun {
 			return nil
@@ -111,12 +112,12 @@ func main() {
 	dryRun := viper.GetBool(flagDryRun)
 	all := !viper.GetBool(flagDir) && !viper.GetBool(flagExt) && !viper.GetBool(flagFile)
 	if viper.GetBool(flagDir) || all {
-		ProcessList("directory list", ws.ListDirectoryLists, ws.ModifyDirectoryList, dryRun)
+		ProcessList("Directory Lists", ws.ListDirectoryLists, ws.ModifyDirectoryList, dryRun)
 	}
 	if viper.GetBool(flagExt) || all {
-		ProcessList("file extension list", ws.ListFileExtensionLists, ws.ModifyFileExtensionList, dryRun)
+		ProcessList("File Extension Lists", ws.ListFileExtensionLists, ws.ModifyFileExtensionList, dryRun)
 	}
 	if viper.GetBool(flagFile) || all {
-		ProcessList("file list", ws.ListFileLists, ws.ModifyFileList, dryRun)
+		ProcessList("File Lists", ws.ListFileLists, ws.ModifyFileList, dryRun)
 	}
 }

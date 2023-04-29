@@ -86,7 +86,7 @@ func AddDependences(l *c1ews.ListResponse, name ...string) {
 	deps := ListDependencies(l)
 	ClearDependence(l)
 	deps = RemoveDuplicates(append(deps, name...))
-	dependence := fmt.Sprintf("\n%s %s\n", DependencePrefix, strings.Join(deps, ", "))
+	dependence := fmt.Sprintf("\n%s %s", DependencePrefix, strings.Join(deps, ", "))
 	l.Description = l.Description + dependence
 }
 

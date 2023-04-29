@@ -188,7 +188,7 @@ func TestAddDependence(t *testing.T) {
 		name := "eeeY"
 		description := "desc A\ninclude: dddX"
 		dependence := fmt.Sprintf("%s %s", DependencePrefix, name)
-		expected := fmt.Sprintf("%s\n%s\n", description, dependence)
+		expected := fmt.Sprintf("%s\n%s", description, dependence)
 		a := &c1ews.ListResponse{
 			ID:          1,
 			Name:        "nameA",
