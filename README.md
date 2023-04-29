@@ -73,10 +73,21 @@ After TMList run, this list will be populated with contents of specified lists.
 
 **Note:** Cycle includes are not alowed 
 
+## Run
+
+TMList can be run without parameters. For Linux/macOS:
+```commandline
+./tmlist
+```
+For Windows:
+```commandline
+tmlist.exe
+```
+It will process all Lists one by one.
 
 ## Options
 
-TMList provides following ways to provide options:
+TMList offers three ways to provide options:
 1. Configuration file config.yaml. Application seeks for this file in its current folder or in folder of its executable
 2. Environment variables
 3. Command line parameters
@@ -93,6 +104,10 @@ Following options are available:
 |Boolean|dry<br/>--dry<br/>TMLIST_DRY|Dry run - do not modify any lists|false|
 
 **Note:** If none of --dir, --ext or --file options are provided they all supposed to be true and TMList processes all lists.
+
+**Note:** If same parameter is privided in more than one way, then following precedence will take place:
+1. Environment variables over configuration file parameters
+2. Command parameters line over both environment variables and configuration file
 
 ## Return Codes
 
