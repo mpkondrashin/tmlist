@@ -122,6 +122,7 @@ func (c *Client) query(ctx context.Context,
 		return fmt.Errorf("create request: %w", err)
 	}
 	req.Header.Set("Authorization", "ApiKey "+c.APIKey)
+	req.Header.Set("api-secret-key", c.APIKey)
 	req.Header.Set("api-version", Version)
 	if requestBody != nil {
 		req.Header.Set("Content-Type", "application/json")

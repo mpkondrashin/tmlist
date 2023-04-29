@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -11,6 +12,13 @@ import (
 	"github.com/mpkondrashin/tmlist/pkg/process"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
+)
+
+const (
+	RCOther = 3 + iota
+	RCAPIError
+	RCCycleDependence
+	RCListNotFound
 )
 
 const EnvPrefix = "TMLIST"
@@ -69,21 +77,27 @@ type (
 	Modify func(context.Context, int, *c1ews.List) (*c1ews.ListResponse, error)
 )
 
-func ProcessList(name string, list List, modify Modify, dryRun bool) {
+func ProcessList(name string, list List, modify Modify, dryRun bool) int {
 	log.Printf("%s: Start", name)
 	r, err := list(context.TODO())
 	if err != nil {
 		log.Print(err)
-		return
+		return RCAPIError
 	}
 	p := process.NewProcess(r)
 	err = p.Process()
 	if err != nil {
-		log.Print(fmt.Errorf("%s: %w", name, err))
-		return
+		log.Printf("%s: %v", name, err)
+		if errors.Is(err, process.ErrListNotFound) {
+			return RCListNotFound
+		}
+		if errors.Is(err, process.ErrCycleDependence) {
+			return RCCycleDependence
+		}
+		return RCOther
 	}
 	count := 0
-	p.IterateChanged(func(list *c1ews.ListResponse) error {
+	err = p.IterateChanged(func(list *c1ews.ListResponse) error {
 		count++
 		log.Printf("%s: modify %s", name, list.Name)
 		if dryRun {
@@ -93,9 +107,13 @@ func ProcessList(name string, list List, modify Modify, dryRun bool) {
 		_, err := modify(context.TODO(), list.ID, l)
 		return err
 	})
+	if err != nil {
+		return RCAPIError
+	}
 	if count == 0 {
 		log.Printf("%s: No modifications", name)
 	}
+	return 0
 }
 
 func main() {
@@ -111,13 +129,24 @@ func main() {
 	ws := c1ews.NewWorkloadSecurity(apikey, host)
 	dryRun := viper.GetBool(flagDryRun)
 	all := !viper.GetBool(flagDir) && !viper.GetBool(flagExt) && !viper.GetBool(flagFile)
+	returnCode := 0
 	if viper.GetBool(flagDir) || all {
-		ProcessList("Directory Lists", ws.ListDirectoryLists, ws.ModifyDirectoryList, dryRun)
+		rc := ProcessList("Directory Lists", ws.ListDirectoryLists, ws.ModifyDirectoryList, dryRun)
+		if rc > returnCode {
+			returnCode = rc
+		}
 	}
 	if viper.GetBool(flagExt) || all {
-		ProcessList("File Extension Lists", ws.ListFileExtensionLists, ws.ModifyFileExtensionList, dryRun)
+		rc := ProcessList("File Extension Lists", ws.ListFileExtensionLists, ws.ModifyFileExtensionList, dryRun)
+		if rc > returnCode {
+			returnCode = rc
+		}
 	}
 	if viper.GetBool(flagFile) || all {
-		ProcessList("File Lists", ws.ListFileLists, ws.ModifyFileList, dryRun)
+		rc := ProcessList("File Lists", ws.ListFileLists, ws.ModifyFileList, dryRun)
+		if rc > returnCode {
+			returnCode = rc
+		}
 	}
+	os.Exit(returnCode)
 }
