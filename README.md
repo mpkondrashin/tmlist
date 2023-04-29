@@ -43,7 +43,7 @@ API entry point will be
 https://workload.<region>.cloudone.trendmicro.com/api
 ```
 
-### Create Configuration File
+### Create configuration file
 Aside to TMList executable create file named config.yaml and open in your favorite text editor.
 Fill it with the following content:
 ```yaml
@@ -59,17 +59,17 @@ TMList support following lists:
 2. File Expension Lists
 3. File Lists
 
-To create list that combines other lists click New button, provide name and go to description section. Put into description section following line
+To create list that combines other lists click New button, provide name and go to description section. Put into description section following lines:
 ```
 Include: <list name>
 Include: <list name>
 ...
 ```
-Other lines can be added to description - they will be ignored by TMList.
+Any other lines can be added to description - they will be ignored by TMList.
 
 After TMList run, this list will be populated with contents of specified lists.
 
-**Warning:** Contents of the list with includes will be deleted!
+**Warning:** Contents of the list with includes will be deleted! After TMList run it will contain only included lists.
 
 **Note:** Cycle includes are not alowed 
 
@@ -92,7 +92,7 @@ Following options are available:
 |Boolean|file<br/>--file<br/>TMLIST_FILE|Process file lists|false|
 |Boolean|dry<br/>--dry<br/>TMLIST_DRY|Dry run - do not modify any lists|false|
 
-**Note:** If none of dir, ext or file are provided they all supposed to be true and TMList processes all lists by default.
+**Note:** If none of --dir, --ext or --file options are provided they all supposed to be true and TMList processes all lists.
 
 ## Return Codes
 
