@@ -125,7 +125,7 @@ The following options are available:
 
 ## Return Codes
 
-If TMList successfully finishes lists modification it returnes code 0. In case of the error, non zero return code can be checked to diagnose a problem.
+If TMList successfully finishes lists modification it returnes code 0. In case of the error, non zero return c  ode can be checked to diagnose a problem.
 
 | Return Code | Description |
 | ----------- | ----------- |
