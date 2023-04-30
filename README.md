@@ -85,8 +85,24 @@ api_key: <your apy key>
 ```
 
 ## Get TMList program
+TMList binary can be downloaded as binary or build from source
 
+### Download binary
 Download TMList program for your platform from [Releases](https://github.com/mpkondrashin/tmlist/releases/latest) page
+
+### Build from source (example for Linux)
+Install Go:
+```commandline
+sudo yum install golang -y
+```
+Clone TMList repo:
+```commandline
+git clone https://github.com/mpkondrashin/tmlist.git
+```
+Build executable:
+```commandline
+go build ./cmd/tmlist
+```
 
 ## Run
 
