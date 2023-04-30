@@ -1,20 +1,20 @@
  
 # Manage Trend Micro Cloud One Workload Security/Deep Security Lists
 
-**Add the ability to include antivirus exclusion lists one into another**
+**Include antivirus exclusion lists one into another**
 
 ## Usage
 
-To use TMList one has to edit exclusion lists, provide API Key, REST API entry point URL, and run the program.
+To use TMList one has to create exclusion lists with includes, provide API Key and REST API entry point URL, and run the program.
 
-### Create lists with includes
+### Create exclusion lists with includes
 
 Open Coud One Workload Security (or Deep Security) console. Go to Policies section -> Common Objects -> Lists.
 TMList support following lists:
 
-Directory Lists
-File Expension Lists
-File Lists
+1. Directory Lists
+2. File Expension Lists
+3. File Lists
 
 To create a list that combines other lists, click New button, provide a name, and go to the description section. Put into description section the following lines:
 ```
@@ -36,20 +36,20 @@ Before generating API Key itself, custom role should be created to avoid using d
 
 #### Create a custom restricted role
 
-1. Open the Cloud One Workload Security (or Deep Security) console.
-2. Go to Administration -> User Management -> Roles.
+1. Open the Cloud One Workload Security/Deep Security console
+2. Go to Administration -> User Management -> Roles
 3. Click New button
-3. Give the new role a name, e.g., "tmlists" <br/><img width="640" src="images/role01.png"/><br/>
-4. Switch to Computer Rights tab. Turn off all rights <br/><img width="640" src="images/role02.png"/><br/>
-5. Switch to API Key Rights tab. Pick Custom and do not select any checkboxes <br/><img width="640" src="images/role03.png"/><br/>
-6. Switch to Common Object Rights tab. Change the dropdown next to File Lists (All), File Extension Lists (All), and 7. Directory Lists (All) to Full. Custom and check only "Can Edit..." checkbox. <br/><img width="640" src="images/role04.png"/><br/>
+4. Give the new role a name, e.g., "tmlists" and allow access only to the web services API:<br/><img width="640" src="images/role01.png"/><br/>
+5. Switch to Computer Rights tab. Turn off all rights <br/><img width="640" src="images/role02.png"/><br/>
+6. Switch to API Key Rights tab. Pick Custom and do not select any checkboxes <br/><img width="640" src="images/role03.png"/><br/>
+7. Switch to Common Object Rights tab. Change the dropdown next to File Lists (All), File Extension Lists (All), and 7. Directory Lists (All) to Full. Custom and check only "Can Edit..." checkbox. <br/><img width="640" src="images/role04.png"/><br/>
 8. Press Ok button at the bottom
 
 #### Generate API Key
 
-1. Go to Administration -> User Management -> API Keys.
+1. Go to Administration -> User Management -> API Keys
 2. Click New button
-3. Give the API Key a name, e.g., "tmlists"
+3. Give the API Key a name, e.g., "TMList"
 4. In the Role dropdown pick name of the role created on the previous step <br/><img width="640" src="images/key01.png"/><br/>
 5. Press Next button
 6. Save the API key to the configuration file (see below)
@@ -60,7 +60,7 @@ Before generating API Key itself, custom role should be created to avoid using d
 Entry point is URL where program will connect to submit Web API calls
 
 #### For Deep Security users
-For Deep Security, address should be the address of one of Deep Security Managers with port that is 4119 by default and /api path:
+For Deep Security, address should be the address of one of Deep Security Managers with port 4119 (this is the  default value) and /api path:
 ```
 https://<dsm address>:4119/api
 ```
@@ -94,13 +94,13 @@ For Windows:
 ```commandline
 tmlist.exe
 ```
-It will process all the Lists one by one.
+It will process all of the supported exclusion lists one by one.
 
 ## Options
 
 TMList offers three ways to provide options:
 
-1. Configuration file config.yaml. The application seeks for this file in its current folder or in folder of its executable
+1. Configuration file config.yaml. The application seeks for this file in the current folder or in folder of its executable
 2. Environment variables
 3. Command line parameters
 
@@ -125,7 +125,7 @@ The following options are available:
 
 ## Return Codes
 
-If TMList successfully finishes lists modification it returnes code 0. In case of the error, non zero Return Code can be checked to diagnose a problem.
+If TMList successfully finishes lists modification it returnes code 0. In case of the error, non zero return code can be checked to diagnose a problem.
 
 | Return Code | Description |
 | ----------- | ----------- |
