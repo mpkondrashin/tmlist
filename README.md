@@ -84,6 +84,10 @@ address: <your API entry point URL>
 api_key: <your apy key>
 ```
 
+## Get TMList program
+
+Download TMList program for your platform from [Releases](https://github.com/mpkondrashin/tmlist/releases/latest) page
+
 ## Run
 
 TMList can be run without parameters. For Linux/macOS:
@@ -121,7 +125,6 @@ The following options are available:
 
 1. Environment variables override the configuration file parameters
 2. Command line options override both environment variables and configuration file parameters
-
 
 ## Return Codes
 
