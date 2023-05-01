@@ -17,36 +17,49 @@ jobs:
     - name: Tests
       run: go test -v ./...
 
-    - name: Build Windows
+    - name: Build TMList Windows
       run: GOOS=windows GOARCH=amd64 go build ./cmd/tmlist
+
+    - name: Build Detect Windows
+      run: GOOS=windows GOARCH=amd64 go build ./cmd/detect
       
     - name: Pack Windows
       uses: montudor/action-zip@v1
       with:
-        args: zip tmlist_win64.zip tmlist.exe
+        args: zip tmlist_win64.zip tmlist.exe detect.exe
 
-    - name: Build Linux
+    - name: Build TMList Linux
       run: GOOS=linux GOARCH=amd64 go build ./cmd/tmlist
+
+    - name: Build Detect Linux
+      run: GOOS=linux GOARCH=amd64 go build ./cmd/detect
 
     - name: Pack Linux
       uses: montudor/action-zip@v1
       with:
-        args: zip tmlist_linux64.zip tmlist
-    - name: Build macOS x86
+        args: zip tmlist_linux64.zip tmlist detect
+
+    - name: Build TMList macOS x86
       run: GOOS=darwin GOARCH=amd64 go build ./cmd/tmlist
+
+    - name: Build Detect macOS x86
+      run: GOOS=darwin GOARCH=amd64 go build ./cmd/detect
 
     - name: Pack macOS x86
       uses: montudor/action-zip@v1
       with:
-        args: zip tmlist_macosx86.zip tmlist
+        args: zip tmlist_macosx86.zip tmlist detect
 
-    - name: Build macOS ARM
+    - name: Build TMList macOS ARM
+      run: GOOS=darwin GOARCH=arm64 go build ./cmd/tmlist
+
+    - name: Build Detect macOS ARM
       run: GOOS=darwin GOARCH=arm64 go build ./cmd/tmlist
       
     - name: Pack macOS ARM
       uses: montudor/action-zip@v1
       with:
-        args: zip tmlist_macosxm.zip tmlist
+        args: zip tmlist_macosxm.zip tmlist detect
 
     - name: Release 
       if: startsWith(github.ref, 'refs/tags/')
