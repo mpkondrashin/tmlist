@@ -49,7 +49,7 @@ jobs:
       with:
         args: zip tmlist_macosxm.zip tmlist
 
-    - name: Release 
+    - name: Publish release 
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
@@ -58,3 +58,26 @@ jobs:
           tmlist_linux64.zip
           tmlist_macosx86.zip
           tmlist_macosxm.zip
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        uses: docker/metadata-action@v4
+        if: startsWith(github.ref, 'refs/tags/')
+        id: meta
+        with:
+          images: mpkondrashin/tmlist
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

@@ -101,11 +101,22 @@ git clone https://github.com/mpkondrashin/tmlist.git
 ```
 Build executable:
 ```commandline
+cd tmlist
 go build ./cmd/tmlist
 ```
 
-## Run
+Build for Alpine Linux:
+```commandline
+CGO_ENABLED=0 GOOS=linux GARCH=amd64 go build ./cmd/tmlist
+```
 
+Build container image:
+```commandline
+docker build  -t tmlist .
+```
+
+## Run
+### Run as command line utility
 TMList can be run without parameters. For Linux/macOS:
 ```commandline
 ./tmlist
@@ -115,6 +126,17 @@ For Windows:
 tmlist.exe
 ```
 It will process all of the supported exclusion lists one by one.
+
+### Run as Docker container
+Prepare environment file with following content, e.g., tmlist.env:
+```bash
+TMLIST_ADDRESS=<your API entry point URL>
+TMLIST_API_KEY=<your apy key>
+```
+Run container:
+```commandline
+docker run --rm  --env-file=tmlist.env  tmlist
+```
 
 ## Options
 
