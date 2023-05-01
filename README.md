@@ -90,32 +90,8 @@ TMList binary can be downloaded as binary or build from source
 ### Download binary
 Download TMList program for your platform from [Releases](https://github.com/mpkondrashin/tmlist/releases/latest) page
 
-### Build from source (example for Linux)
-Install Go:
-```commandline
-sudo yum install golang -y
-```
-Clone TMList repo:
-```commandline
-git clone https://github.com/mpkondrashin/tmlist.git
-```
-Build executable:
-```commandline
-cd tmlist
-go build ./cmd/tmlist
-```
-
-Build for Alpine Linux:
-```commandline
-CGO_ENABLED=0 GOOS=linux GARCH=amd64 go build ./cmd/tmlist
-```
-
-Build container image:
-```commandline
-docker build  -t tmlist .
-```
-
 ## Run
+
 ### Run as command line utility
 TMList can be run without parameters. For Linux/macOS:
 ```commandline
@@ -126,17 +102,6 @@ For Windows:
 tmlist.exe
 ```
 It will process all of the supported exclusion lists one by one.
-
-### Run as Docker container
-Prepare environment file with following content, e.g., tmlist.env:
-```bash
-TMLIST_ADDRESS=<your API entry point URL>
-TMLIST_API_KEY=<your apy key>
-```
-Run container:
-```commandline
-docker run --rm  --env-file=tmlist.env  tmlist
-```
 
 ## Options
 
@@ -176,3 +141,41 @@ If TMList successfully finishes lists modification it returnes code 0. In case o
 |4|API error|
 |5|Cycle Dependence|
 |6|List Not Found|
+
+## Advanced topics
+
+### Run as Docker container
+Prepare environment file with following content, e.g., tmlist.env:
+```bash
+TMLIST_ADDRESS=<your API entry point URL>
+TMLIST_API_KEY=<your apy key>
+```
+Run container:
+```commandline
+docker run --rm  --env-file=tmlist.env  mpkondrashin/tmlist
+```
+
+### Build from source (example for Linux)
+Install Go:
+```commandline
+sudo yum install golang -y
+```
+Clone TMList repo:
+```commandline
+git clone https://github.com/mpkondrashin/tmlist.git
+```
+Build executable:
+```commandline
+cd tmlist
+go build ./cmd/tmlist
+```
+
+Build for Alpine Linu to be used in Docker container: 
+```commandline
+CGO_ENABLED=0 GOOS=linux GARCH=amd64 go build ./cmd/tmlist
+```
+
+Build container image:
+```commandline
+docker build  -t tmlist .
+```
