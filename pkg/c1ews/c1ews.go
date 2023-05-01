@@ -118,6 +118,32 @@ func (c *Client) listLists(ctx context.Context, url string) ([]ListResponse, err
 	return nil, fmt.Errorf("missing response data for %s", url)
 }
 
+type DescribeAPIKeyResponse struct {
+	KeyName                    string `json:"keyName"`
+	Description                string `json:"description"`
+	Locale                     string `json:"locale"`
+	RoleID                     int    `json:"roleID"`
+	TimeZone                   string `json:"timeZone"`
+	Active                     bool   `json:"active"`
+	Created                    int    `json:"created"`
+	LastSignIn                 int    `json:"lastSignIn"`
+	UnlockTime                 int    `json:"unlockTime"`
+	UnsuccessfulSignInAttempts int    `json:"unsuccessfulSignInAttempts"`
+	ExpiryDate                 int    `json:"expiryDate"`
+	SecretKey                  string `json:"secretKey"`
+	ServiceAccount             bool   `json:"serviceAccount"`
+	ID                         int    `json:"ID"`
+}
+
+func (c *Client) DescribeCurrentAPIKey(ctx context.Context) (*DescribeAPIKeyResponse, error) {
+	var response DescribeAPIKeyResponse
+	err := c.query(ctx, "GET", "/apikeys/current", nil, &response)
+	if err != nil {
+		return nil, err
+	}
+	return &response, nil
+}
+
 func (c *Client) query(ctx context.Context,
 	method string,
 	url string,
