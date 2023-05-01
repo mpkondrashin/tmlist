@@ -3,6 +3,7 @@ package c1ews
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -13,8 +14,9 @@ import (
 const Version = "v1"
 
 type Client struct {
-	APIKey string
-	Host   string
+	APIKey          string
+	Host            string
+	IgnoreTLSErrors bool
 }
 
 func NewWorkloadSecurity(APIKey string, Host string) *Client {
@@ -22,6 +24,11 @@ func NewWorkloadSecurity(APIKey string, Host string) *Client {
 		APIKey: APIKey,
 		Host:   Host,
 	}
+}
+
+func (c *Client) SetIgnoreTLSErrors(ignoreTLSErrors bool) *Client {
+	c.IgnoreTLSErrors = ignoreTLSErrors
+	return c
 }
 
 type WSError struct {
@@ -127,7 +134,10 @@ func (c *Client) query(ctx context.Context,
 	if requestBody != nil {
 		req.Header.Set("Content-Type", "application/json")
 	}
-	client := &http.Client{}
+	transport := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: c.IgnoreTLSErrors}, //nolint
+	}
+	client := &http.Client{Transport: transport}
 	resp, err := client.Do(req)
 	if err != nil {
 		return fmt.Errorf("HTTP request: %w", err)

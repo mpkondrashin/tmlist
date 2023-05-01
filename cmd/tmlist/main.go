@@ -29,18 +29,20 @@ const (
 )
 
 const (
-	flagAddress = "address"
-	flagAPIKey  = "api_key"
-	flagDir     = "dir"
-	flagExt     = "ext"
-	flagFile    = "file"
-	flagDryRun  = "dry"
+	flagAddress         = "address"
+	flagAPIKey          = "api_key"
+	flagIgnoreTLSErrors = "ignore_tls_errors"
+	flagDir             = "dir"
+	flagExt             = "ext"
+	flagFile            = "file"
+	flagDryRun          = "dry"
 )
 
 func Configure() {
 	fs := pflag.NewFlagSet("", pflag.ExitOnError)
 	fs.String(flagAddress, "", "Cloud One Woekload Security entry point URL")
 	fs.String(flagAPIKey, "", "Cloud One API Key")
+	fs.Bool(flagIgnoreTLSErrors, false, "Ignore all TLS errors")
 	fs.Bool(flagDir, false, "Process directory lists")
 	fs.Bool(flagExt, false, "Process file extension lists")
 	fs.Bool(flagFile, false, "Process file lists")
@@ -127,6 +129,7 @@ func main() {
 		log.Fatal(fmt.Errorf("%s parameter is missing", flagAPIKey))
 	}
 	ws := c1ews.NewWorkloadSecurity(apikey, host)
+	ws.SetIgnoreTLSErrors(viper.GetBool(flagIgnoreTLSErrors))
 	dryRun := viper.GetBool(flagDryRun)
 	all := !viper.GetBool(flagDir) && !viper.GetBool(flagExt) && !viper.GetBool(flagFile)
 	returnCode := 0
