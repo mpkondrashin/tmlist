@@ -156,7 +156,7 @@ TMLIST_API_KEY=<your apy key>
 ```
 Run container:
 ```commandline
-docker run --rm  --env-file=tmlist.env  mpkondrashin/tmlist
+docker run --rm --env-file=tmlist.env mpkondrashin/tmlist
 ```
 
 ### Build from source (example for Linux)
