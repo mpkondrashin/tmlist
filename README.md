@@ -174,7 +174,7 @@ cd tmlist
 go build ./cmd/tmlist
 ```
 
-Build for Alpine Linu to be used in Docker container: 
+Build for Alpine Linux to be used in Docker container: 
 ```commandline
 CGO_ENABLED=0 GOOS=linux GARCH=amd64 go build ./cmd/tmlist
 ```
