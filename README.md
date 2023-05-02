@@ -3,6 +3,8 @@
 
 **Include antivirus exclusion lists one into another**
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Usage
 
 To use TMList one has to create exclusion lists with includes, provide API Key and REST API entry point URL, and run the program.

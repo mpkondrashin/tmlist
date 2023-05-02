@@ -1,3 +1,12 @@
+//////////////////////////////////////////////////////////////////////////
+//
+//  (c) TMList 2023 by Mikhail Kondrashin (mkondrashin@gmail.com)
+//  Copyright under MIT Lincese. Please see LICENSE file for details
+//
+//  list_test.go - tests for functions in list.go
+//
+//////////////////////////////////////////////////////////////////////////
+
 package process
 
 import (

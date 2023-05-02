@@ -1,3 +1,12 @@
+//////////////////////////////////////////////////////////////////////////
+//
+//  (c) TMList 2023 by Mikhail Kondrashin (mkondrashin@gmail.com)
+//  Copyright under MIT Lincese. Please see LICENSE file for details
+//
+//  process.go - include C1WS exclusion lists one into another
+//
+//////////////////////////////////////////////////////////////////////////
+
 package process
 
 import (

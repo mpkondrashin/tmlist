@@ -1,3 +1,12 @@
+//////////////////////////////////////////////////////////////////////////
+//
+//  (c) TMList 2023 by Mikhail Kondrashin (mkondrashin@gmail.com)
+//  Copyright under MIT Lincese. Please see LICENSE file for details
+//
+//  list.go - various functions to manipulate exclusion lists
+//
+//////////////////////////////////////////////////////////////////////////
+
 package process
 
 import (

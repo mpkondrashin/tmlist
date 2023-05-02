@@ -1,3 +1,14 @@
+//////////////////////////////////////////////////////////////////////////
+//
+//  (c) TMList 2023 by Mikhail Kondrashin (mkondrashin@gmail.com)
+//  Copyright under MIT Lincese. Please see LICENSE file for details
+//
+//  c1ews.go - partial implementation of CloudOne Endpoint &
+//  Workload Security API. For more details, refer to:
+//  https://cloudone.trendmicro.com/docs/workload-security/api-reference/
+//
+//////////////////////////////////////////////////////////////////////////
+
 package c1ews
 
 import (

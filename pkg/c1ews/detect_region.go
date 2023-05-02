@@ -1,3 +1,13 @@
+//////////////////////////////////////////////////////////////////////////
+//
+//  (c) TMList 2023 by Mikhail Kondrashin (mkondrashin@gmail.com)
+//  Copyright under MIT Lincese. Please see LICENSE file for details
+//
+//  detect_region.go - detect region (Web API entripoint URL) using
+//  given API Key
+//
+//////////////////////////////////////////////////////////////////////////
+
 package c1ews
 
 import (

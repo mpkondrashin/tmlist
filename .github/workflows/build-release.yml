@@ -1,3 +1,10 @@
+#
+#  TMList (c) 2023 by Mikhail Kondrashin (mkondrashin@gmail.com)
+#  Copyright under MIT Lincese. Please see LICENSE file for details
+#
+#  build_release.yml - github action to generate release files and upload image to Docker Hub
+#
+
 name: Go
 on: [push]
 jobs:

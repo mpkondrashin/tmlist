@@ -1,3 +1,12 @@
+//////////////////////////////////////////////////////////////////////////
+//
+//  (c) TMList 2023 by Mikhail Kondrashin (mkondrashin@gmail.com)
+//  Copyright under MIT Lincese. Please see LICENSE file for details
+//
+//  main.go - detection of API entry point URL using API Key
+//
+//////////////////////////////////////////////////////////////////////////
+
 package main
 
 import (
