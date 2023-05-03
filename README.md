@@ -78,7 +78,7 @@ API entry point will be
 https://workload.<region>.cloudone.trendmicro.com/api
 ```
 
-**Note:** if region is unknown, Detect utility can be used. It is porvided along with TMList binary and accept the only parameter: API Key (as command line --api_key or through environment and even from TMList config.yaml file). It will output workload security API entrypoint or "Not detected" in case of failure. Detect support only workload security and not Cloud One API Keys.
+**Note:** if region is unknown, Detect utility can be used. It is porvided along with TMList binary and accept the only parameter: API Key (as command line --api_key or through environment and even from TMList config.yaml file). It will output workload security API entrypoint or "Not detected" in case of failure.
  
 ### Create a configuration file
 In the same directory as  TMList executable create file named config.yaml and open it in your favorite text editor.

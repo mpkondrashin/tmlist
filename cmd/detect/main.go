@@ -17,6 +17,7 @@ import (
 	"path/filepath"
 
 	"github.com/mpkondrashin/tmlist/pkg/c1ews"
+	"github.com/mpkondrashin/tmlist/pkg/cone"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -69,15 +70,23 @@ func Configure() {
 	}
 }
 
+func DetectEntryPoint(apikey string) (string, error) {
+	region, err := cone.NewClient(apikey).CurrentAPIKeyRegion(context.TODO())
+	if err == nil {
+		return c1ews.EntryPoint(region), nil
+	}
+	return c1ews.DetectEntryPoint(context.TODO(), apikey)
+}
+
 func main() {
 	Configure()
 	apikey := viper.GetString(flagAPIKey)
 	if apikey == "" {
 		log.Fatal(fmt.Errorf("%s parameter is missing", flagAPIKey))
 	}
-	host := c1ews.DetectEntryPoint(context.TODO(), apikey)
-	if host == "" {
+	entryPoint, err := DetectEntryPoint(apikey)
+	if err != nil {
 		log.Fatal("Not detected")
 	}
-	fmt.Println(host)
+	fmt.Println(entryPoint)
 }

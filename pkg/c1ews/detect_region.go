@@ -12,9 +12,12 @@ package c1ews
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"sync"
 )
+
+var ErrNotFound = errors.New("not found")
 
 type Region struct {
 	Name string
@@ -34,24 +37,36 @@ var RegionList = []Region{
 	{"Trend US", "trend-us-1"},
 }
 
-func DetectEntryPoint(ctx context.Context, APIKey string) (result string) {
+func DetectRegion(ctx context.Context, APIKey string) (result string, err error) {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
+	err = ErrNotFound
 	var wg sync.WaitGroup
 	for _, region := range RegionList {
-		host := fmt.Sprintf("https://workload.%s.cloudone.trendmicro.com/api", region.ID)
 		wg.Add(1)
-		go func(h string) {
+		go func(region string) {
 			defer wg.Done()
-			ws := NewWorkloadSecurity(APIKey, h)
-			_, err := ws.DescribeCurrentAPIKey(ctx)
-			if err != nil {
+			ws := NewWorkloadSecurity(APIKey, EntryPoint(region))
+			if _, err := ws.DescribeCurrentAPIKey(ctx); err != nil {
 				return
 			}
 			cancel()
-			result = h
-		}(host)
+			result = region
+			err = nil
+		}(region.ID)
 	}
 	wg.Wait()
 	return
+}
+
+func DetectEntryPoint(ctx context.Context, APIKey string) (string, error) {
+	region, err := DetectRegion(ctx, APIKey)
+	if err != nil {
+		return "", err
+	}
+	return EntryPoint(region), nil
+}
+
+func EntryPoint(region string) string {
+	return fmt.Sprintf("https://workload.%s.cloudone.trendmicro.com/api", region)
 }
