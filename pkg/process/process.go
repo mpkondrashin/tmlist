@@ -14,6 +14,7 @@ import (
 	"fmt"
 
 	"github.com/mpkondrashin/tmlist/pkg/c1ews"
+	"github.com/mpkondrashin/tmlist/pkg/levenshtein"
 	"golang.org/x/exp/maps"
 )
 
@@ -67,9 +68,9 @@ func (p *Process) GetAllItemsWithMap(l *c1ews.ListResponse, seen map[string]stru
 	}
 	seen[l.Name] = struct{}{}
 	for _, name := range includes {
-		list := p.FindList(name)
-		if list == nil {
-			return fmt.Errorf("%w: \"%s\" included in \"%s\" list", ErrListNotFound, name, l.Name)
+		list, err := p.FindListWithError(name)
+		if err != nil {
+			return fmt.Errorf("included in %s: %w", l.Name, err)
 		}
 		_, found := seen[list.Name]
 		if found {
@@ -95,6 +96,28 @@ func (p *Process) FindList(name string) *c1ews.ListResponse {
 		}
 	}
 	return nil
+}
+
+func (p *Process) FindListWithError(name string) (*c1ews.ListResponse, error) {
+	for i := range p.out {
+		if p.out[i].Name == name {
+			return &p.out[i], nil
+		}
+	}
+	return nil, p.ListNotFoundError(name)
+}
+
+func (p *Process) ListNotFoundError(name string) error {
+	dist := -1
+	closest := ""
+	for i := range p.out {
+		d := levenshtein.Distance(p.out[i].Name, name)
+		if dist == -1 || d < dist {
+			dist = d
+			closest = p.out[i].Name
+		}
+	}
+	return fmt.Errorf("%s: %w (did you mean \"%s\"?)", name, ErrListNotFound, closest)
 }
 
 func (p *Process) IterateChanged(callback func(*c1ews.ListResponse) error) error {
